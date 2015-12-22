@@ -13,3 +13,19 @@ hs_err_pid*
 
 # Remove Mac
 .DS_Store
+
+# ignore Intellij-IDEA files
+*.iml
+*.ipr
+*.iws
+*.classpath
+*.settings
+*.project
+*.idea
+
+
+# ignore logs
+*.log
+
+# ignore target directories
+target/
