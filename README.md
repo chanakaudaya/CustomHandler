@@ -45,7 +45,7 @@ Sample Synapse Configuration
 Sample Request
 ======================
 
-curl -XPOST -H 'Accept: application/soap+xml' -H 'myOwnHeader: mindyourheader' -d '{"sample":{"hello":"world"}}' 'http://10.249.134.81:8280/world/v1'
+curl -XPOST -H 'Accept: application/soap+xml' -H 'myOwnHeader: mindyourheader' -d '{"sample":{"hello":"world"}}' 'http://localhost:8280/world/v1'
 
 Expected Response
 ======================
