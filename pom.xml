@@ -29,46 +29,132 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.synapse</groupId>
-            <artifactId>synapse-extensions</artifactId>
+            <artifactId>synapse-core</artifactId>
             <version>${org.apache.synapse}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.apimgt</groupId>
+            <artifactId>org.wso2.carbon.apimgt.impl</artifactId>
+            <scope>compile</scope>
+            <version>${org.wso2.carbon.apimgt.impl}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>log4j-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>javax.cache.wso2</artifactId>
+            <scope>compile</scope>
+            <version>${javax.cache.wso2}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.carbon</groupId>
             <artifactId>org.wso2.carbon.core</artifactId>
-			<version>${wso2carbon.version}</version>
+            <version>${org.wso2.carbon.core}</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.synapse</groupId>
-            <artifactId>synapse-core</artifactId>
-            <version>${org.apache.synapse}</version>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.utils</artifactId>
+            <version>${org.wso2.carbon.core}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.user.core</artifactId>
+            <version>${org.wso2.carbon.core}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.governance.api</artifactId>
+            <version>4.2.1</version>
             <exclusions>
                 <exclusion>
-                    <groupId>org.apache.axis2</groupId>
-                    <artifactId>axis2-codegen</artifactId>
+                    <!-- declare the exclusion here -->
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-entitymanager</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.apimgt</groupId>
+            <artifactId>org.wso2.carbon.apimgt.gateway</artifactId>
+            <version>${org.wso2.carbon.apimgt.impl}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity</groupId>
+            <artifactId>org.wso2.carbon.user.mgt.stub</artifactId>
+            <version>${org.wso2.carbon.user.mgt.stub}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.apimgt</groupId>
+            <artifactId>org.wso2.carbon.apimgt.hostobjects</artifactId>
+            <version>${org.wso2.carbon.apimgt.hostobjects}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>slf4j.wso2</groupId>
+                    <artifactId>slf4j</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.wso2.carbon</groupId>
             <artifactId>org.wso2.carbon.logging</artifactId>
-			<version>${wso2carbon.version}</version>			
+            <version>${org.wso2.carbon}</version>
         </dependency>
         <dependency>
             <groupId>org.wso2.carbon.apimgt</groupId>
-            <artifactId>org.wso2.carbon.apimgt.gateway</artifactId>
-            <version>${org.wso2.carbon.apimgt}</version>
+            <artifactId>org.wso2.carbon.apimgt.api</artifactId>
+            <version>${org.wso2.carbon.apimgt.api}</version>
         </dependency>
-
         <dependency>
-             <groupId>org.wso2.carbon</groupId>
-             <artifactId>org.wso2.carbon.utils</artifactId>       
-			<version>${wso2carbon.version}</version>			 
-         </dependency>
+            <groupId>org.wso2.carbon</groupId>
+            <artifactId>org.wso2.carbon.apimgt.keymgt</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.synapse</groupId>
+            <artifactId>synapse-nhttp-transport</artifactId>
+            <version>${synapse-nhttp-transport}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.wso2.carbon.identity</groupId>
+            <artifactId>org.wso2.carbon.identity.oauth</artifactId>
+            <version>${org.wso2.carbon.identity.oauth.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>slf4j.wso2</groupId>
+                    <artifactId>slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-kernel</artifactId>
+            <version>${axis2.version}</version>
+        </dependency>
     </dependencies>
 <properties>
-    <wso2carbon.version>4.4.6</wso2carbon.version>
-    <org.apache.synapse>2.1.7-wso2v2</org.apache.synapse>
-    <org.wso2.carbon.apimgt>5.0.3</org.wso2.carbon.apimgt>
+    <axis2.version>1.6.1-wso2v19</axis2.version>
+    <org.wso2.carbon>4.4.6</org.wso2.carbon>
+    <org.wso2.carbon.user.core>4.4.6</org.wso2.carbon.user.core>
+    <org.wso2.carbon.core>4.4.6</org.wso2.carbon.core>
+    <javax.cache.wso2>4.4.6</javax.cache.wso2>
+    <synapse-nhttp-transport>2.1.7-wso2v3</synapse-nhttp-transport>
+    <org.apache.synapse>2.1.7-wso2v3</org.apache.synapse>
+    <org.wso2.carbon.user.mgt.stub>5.2.0</org.wso2.carbon.user.mgt.stub>
+    <org.wso2.carbon.identity.oauth.version>5.1.1</org.wso2.carbon.identity.oauth.version>
+    <org.wso2.carbon.apimgt.impl>6.0.3</org.wso2.carbon.apimgt.impl>
+    <org.wso2.carbon.apimgt.hostobjects>6.0.3</org.wso2.carbon.apimgt.hostobjects>
+    <org.wso2.carbon.apimgt.api>6.0.3</org.wso2.carbon.apimgt.api>
+    <org.wso2.carbon.apimgt.gateway>6.0.3</org.wso2.carbon.apimgt.gateway>
 </properties>
     <repositories>
         <repository>
@@ -78,7 +164,6 @@
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>daily</updatePolicy>
-                <checksumPolicy>skip</checksumPolicy>
             </releases>
         </repository>
     </repositories>
