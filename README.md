@@ -31,12 +31,7 @@ Sample Synapse Configuration
         &lt;/resource&gt;
         &lt;handlers&gt;
             &lt;handler class=&quot;org.wso2.carbon.apimgt.gateway.handlers.security.APIAuthenticationHandler&quot;/&gt;
-            &lt;handler class=&quot;org.wso2.carbon.apimgt.gateway.handlers.throttling.APIThrottleHandler&quot;&gt;
-                &lt;property name=&quot;id&quot; value=&quot;A&quot;/&gt;
-                &lt;property name=&quot;policyKey&quot; value=&quot;gov:/apimgt/applicationdata/tiers.xml&quot;/&gt;
-            &lt;/handler&gt;
             &lt;handler class=&quot;org.wso2.carbon.apimgt.usage.publisher.APIMgtUsageHandler&quot;/&gt;
-            &lt;handler class=&quot;org.wso2.carbon.apimgt.usage.publisher.APIMgtGoogleAnalyticsTrackingHandler&quot;/&gt;
             &lt;handler class=&quot;org.wso2.carbon.test.gateway.CustomHandler&quot;/&gt;&lt;!--Changed this according to your Custom Handler--&gt;
             &lt;handler class=&quot;org.wso2.carbon.apimgt.gateway.handlers.ext.APIManagerExtensionHandler&quot;/&gt;
         &lt;/handlers&gt;
