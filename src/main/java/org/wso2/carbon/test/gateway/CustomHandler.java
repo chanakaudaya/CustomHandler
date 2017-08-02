@@ -35,10 +35,12 @@ public class CustomHandler extends AbstractHandler {
 
     public boolean handleRequest(MessageContext messageContext) {
         log.info("===================handleRequest============================================================");
+        // Set the Payload
         sendBadRequestTrace(messageContext, "Missing CSRF Token");
-        log.info("====================NO MORE MONKEY JUMPING ON THE BED=======================================");
+    
         TreeMap<String, String> headers = (TreeMap<String, String>) ((Axis2MessageContext) messageContext).
                 getAxis2MessageContext().getProperty("TRANSPORT_HEADERS");
+        //Break the flow
         return false;
     }
 
