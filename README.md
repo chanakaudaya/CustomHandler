@@ -1,49 +1,72 @@
 # CustomHandler
-Sample Custom Handler for WSO2 APIM manger
+Sample Custom Logging Handler for WSO2 APIM manger
 
 
 Installation
 ============
 Please read the official documentation for details.
-https://docs.wso2.com/display/AM180/Writing+Custom+Handlers#WritingCustomHandlers-Writingacustomhandler
+https://docs.wso2.com/display/AM250/Writing+Custom+Handlers
 
 
 Sample Synapse Configuration
 ============================
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse"
+     name="admin--loggingAPI"
+     context="/logging/v1"
+     version="v1"
+     version-type="context">
+   <resource methods="POST GET" url-mapping="/*" faultSequence="fault">
+      <inSequence>
+         <property name="api.ut.backendRequestTime"
+                   expression="get-property('SYSTEM_TIME')"/>
+         <filter source="$ctx:AM_KEY_TYPE" regex="PRODUCTION">
+            <then>
+               <send>
+                  <endpoint key="loggingAPI--vv1_APIproductionEndpoint"/>
+               </send>
+            </then>
+            <else>
+               <send>
+                  <endpoint key="loggingAPI--vv1_APIsandboxEndpoint"/>
+               </send>
+            </else>
+         </filter>
+      </inSequence>
+      <outSequence>
+         <class name="org.wso2.carbon.apimgt.gateway.handlers.analytics.APIMgtResponseHandler"/>
+         <send/>
+      </outSequence>
+   </resource>
+   <handlers>
+      <handler class="org.wso2.sample.handler.CustomHandler"/>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.common.APIMgtLatencyStatsHandler"/>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.security.CORSRequestHandler">
+         <property name="apiImplementationType" value="ENDPOINT"/>
+      </handler>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.security.APIAuthenticationHandler">
+         <property name="RemoveOAuthHeadersFromOutMessage" value="true"/>
+      </handler>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.throttling.ThrottleHandler"/>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.analytics.APIMgtUsageHandler"/>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.analytics.APIMgtGoogleAnalyticsTrackingHandler">
+         <property name="configKey" value="gov:/apimgt/statistics/ga-config.xml"/>
+      </handler>
+      <handler class="org.wso2.carbon.apimgt.gateway.handlers.ext.APIManagerExtensionHandler"/>
+   </handlers>
+</api>
+```
 
-&lt;api name=&quot;admin--hello&quot; context=&quot;/world&quot; version=&quot;v1&quot; version-type=&quot;url&quot;&gt;
-        &lt;resource methods=&quot;POST GET OPTIONS DELETE PUT&quot; url-mapping=&quot;/*&quot;&gt;
-            &lt;inSequence&gt;
-                &lt;property name=&quot;POST_TO_URI&quot; value=&quot;true&quot; scope=&quot;axis2&quot;/&gt;
-                &lt;filter source=&quot;$ctx:AM_KEY_TYPE&quot; regex=&quot;PRODUCTION&quot;&gt;
-                    &lt;then&gt;
-                        &lt;loopback/&gt;
-                    &lt;/then&gt;
-                    &lt;else&gt;
-                        &lt;sequence key=&quot;_sandbox_key_error_&quot;/&gt;
-                    &lt;/else&gt;
-                &lt;/filter&gt;
-            &lt;/inSequence&gt;
-            &lt;outSequence&gt;
-                &lt;log level=&quot;full&quot;/&gt;
-                &lt;send/&gt;
-            &lt;/outSequence&gt;
-        &lt;/resource&gt;
-        &lt;handlers&gt;
-            &lt;handler class=&quot;org.wso2.carbon.apimgt.gateway.handlers.security.APIAuthenticationHandler&quot;/&gt;
-            &lt;handler class=&quot;org.wso2.carbon.apimgt.usage.publisher.APIMgtUsageHandler&quot;/&gt;
-            &lt;handler class=&quot;org.wso2.carbon.test.gateway.CustomHandler&quot;/&gt;&lt;!--Changed this according to your Custom Handler--&gt;
-            &lt;handler class=&quot;org.wso2.carbon.apimgt.gateway.handlers.ext.APIManagerExtensionHandler&quot;/&gt;
-        &lt;/handlers&gt;
-    &lt;/api&gt;
 
 Sample Request
 ======================
 
-curl -XPOST -H 'Accept: application/soap+xml' -H 'myOwnHeader: mindyourheader' -d '{"sample":{"hello":"world"}}' 'http://localhost:8280/world/v1'
+curl -v -H "SessionId: 123213213" -H "Authorization: Bearer 4c394433-bcb9-30d3-b68a-603877ca6cdc"  http://localhost:8280/logging/v1
 
-Expected Response
+Expected Result
 ======================
-Custom Header will be removed and Depend on the Accept header response payload will build.
+You should see the following log printed in the APIM_HOME/repository/logs/audit.log file
 
+[2018-09-25 17:47:05,713]  INFO -  SessionId created with custom logging handler : 123213213 
 
