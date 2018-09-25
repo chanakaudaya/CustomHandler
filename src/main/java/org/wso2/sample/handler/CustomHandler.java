@@ -12,9 +12,6 @@ import org.wso2.carbon.CarbonConstants;
 
 public class CustomHandler extends AbstractHandler {
 
-    private static final String DIRECTION_OUT = "Out";
-    private static final String APPLICATION_JSON = "application/json";
-    private static final Log log = LogFactory.getLog(CustomHandler.class);
     private static final Log AUDIT_LOG = CarbonConstants.AUDIT_LOG;
 
     public boolean mediate(MessageContext messageContext, String direction) {
